@@ -21,8 +21,8 @@ SELECT clave,sum(precio) AS total FROM venta JOIN articulo ON articulo.id_articu
 CREATE VIEW puesto_empleado_012 AS SELECT empleado.nombre,apellido_paterno,apellido_materno,puesto.nombre AS puesto FROM empleado JOIN puesto ON empleado.id_puesto=puesto.id_puesto;
 SELECT * FROM puesto_empleado_012;
 #Saber qué artículos ha vendido cada empleado.
-CREATE VIEW venta_articulo_empleado_012 AS SELECT clave,empleado.nombre,apellido_paterno,apellido_materno,articulo.nombre FROM venta JOIN articulo ON venta.id_articulo=articulo.id_articulo JOIN empleado ON empleado.id_empleado=venta.id_empleado;
+CREATE VIEW venta_articulo_empleado_012 AS SELECT clave,empleado.nombre,apellido_paterno,apellido_materno,articulo.nombre AS articulo FROM venta JOIN articulo ON venta.id_articulo=articulo.id_articulo JOIN empleado ON empleado.id_empleado=venta.id_empleado;
 SELECT * FROM venta_articulo_empleado_012;
 #Saber qué puesto ha tenido más ventas.
 CREATE VIEW puesto_venta_012 AS SELECT puesto.nombre,count(clave) AS ventas FROM venta JOIN empleado ON venta.id_empleado=empleado.id_empleado JOIN puesto ON puesto.id_puesto=empleado.id_puesto GROUP BY puesto.nombre;
-SELECT * FROM puesto_venta_012 WHERE venta=(SELECT max(venta) FROM puesto_venta);
+SELECT * FROM puesto_venta_012 WHERE ventas=(SELECT max(ventas) FROM puesto_venta_012);
